@@ -16,7 +16,7 @@ const Home = () => {
 
   const updateCalc = input => {
     let auxCalc = calc;
-    if (calc === SynErr) auxCalc = '';
+    if (calc === SynErr || calc === 'Infinity') auxCalc = '';
     if (
       !(operatorsNotMinus.includes(input) && (auxCalc === '' || Operators.includes(auxCalc.slice(-1)))) &&
       !(input === '-' && auxCalc.slice(-1) === '-') &&
@@ -33,13 +33,17 @@ const Home = () => {
 
   useEffect(() => {
     if (!didCommit) {
-      try {
-        setResult(
-          Operators.includes(calc.slice(-1)) ? eval(calc.slice(0, -1)).toString() : eval(calc).toString()
-        );
-        setIsValid(true);
-      } catch {
-        setIsValid(false);
+      if (calc === '') {
+        setResult('');
+      } else {
+        try {
+          setResult(
+            Operators.includes(calc.slice(-1)) ? eval(calc.slice(0, -1)).toString() : eval(calc).toString()
+          );
+          setIsValid(true);
+        } catch {
+          setIsValid(false);
+        }
       }
     } else {
       setResult('');

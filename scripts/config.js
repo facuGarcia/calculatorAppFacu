@@ -27,7 +27,7 @@ exports.CUSTOMER_ENVIRONMENTS_CONF = {
 // You could add here multiple customers and their environment variables
 exports.CUSTOMERS_CONF = {
   someCustomer: {
-    REACT_APP_WEB_TITLE: 'Widergy - React app bootstrap'
+    REACT_APP_WEB_TITLE: 'Calculadora'
   }
 };
 
