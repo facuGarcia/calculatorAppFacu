@@ -1,3 +1,4 @@
+/* eslint-disable no-eval */
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
@@ -47,7 +48,6 @@ const Home = () => {
   }, [calc]);
 
   const commitResult = () => {
-    console.log(isValid)
     if (result === '' && isValid) return;
     if (result !== calc) {
       setDidCommit(true);

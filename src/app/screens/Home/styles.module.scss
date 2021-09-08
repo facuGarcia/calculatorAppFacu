@@ -10,8 +10,9 @@
   background-color: $black;
   border-radius: 15px;
   overflow: hidden;
-  box-shadow: 0px 2px 64px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 64px $box-color;
 }
+
 .calculatorDisplay {
   padding-right: 12px;
   display: flex;
@@ -25,24 +26,29 @@
   font-size: 25px;
   font-weight: 300;
 }
+
 .result {
   font-size: 15px;
 }
+
 .buttons {
   display: flex;
   flex-direction: row;
 }
+
 .digits {
   display: flex;
   flex-wrap: wrap;
   flex: 0 0 75%;
 }
-.digits button{
+
+.digits button {
   flex: 0 0 33.33333%;
 }
+
 button {
   appearance: none;
-  border: none;
+  border: 0;
   padding: 15px;
 }
 
@@ -58,6 +64,5 @@ button:hover {
 
 .operators button {
   background-color: $input-primary;
-  font-weight: 600
+  font-weight: 600;
 }
-
