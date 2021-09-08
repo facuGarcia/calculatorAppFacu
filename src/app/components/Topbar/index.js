@@ -7,7 +7,9 @@ import styles from './styles.module.scss';
 
 const Topbar = () => (
   <div className={styles.container}>
-    <UTLabel bold large white>{`React App Bootstrap v${process.env.REACT_APP_VERSION}`}</UTLabel>
+    <UTLabel bold large white>
+      {'Calculadora'}
+    </UTLabel>
     <img alt="logo" src={logo} className={styles.logo} />
   </div>
 );

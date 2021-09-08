@@ -2,10 +2,8 @@ import React, { PureComponent } from 'react';
 import Rollbar from 'rollbar';
 import ReactGA from 'react-ga';
 import { disableReactDevTools } from '@widergy/web-utils/lib/config';
-import { EnergyThemeProvider } from '@widergy/energy-ui';
 
 import App from './layout';
-import { energyUITheme } from './styles';
 
 class AppContainer extends PureComponent {
   constructor(props) {
@@ -28,13 +26,7 @@ class AppContainer extends PureComponent {
   }
 
   render() {
-    return (
-      <div>
-        <EnergyThemeProvider theme={energyUITheme}>
-          <App />
-        </EnergyThemeProvider>
-      </div>
-    );
+    return <App />;
   }
 }
 

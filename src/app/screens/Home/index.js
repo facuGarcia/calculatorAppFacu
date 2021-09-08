@@ -1,23 +1,87 @@
-import React, { useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { push } from 'connected-react-router';
-import { UTButton, UTLabel } from '@widergy/energy-ui';
-import i18 from 'i18next';
 
-import { QUOTES } from 'constants/routes';
-
+import Calculator from './layout';
+import { Digits, Other, Operators, SynErr } from './constants.js';
 import styles from './styles.module.scss';
 
-const Home = ({ dispatch }) => {
-  const goToQuotes = useCallback(() => dispatch(push(QUOTES)), [dispatch]);
+const Home = () => {
+  const [calc, setCalc] = useState('');
+  const [result, setResult] = useState('');
+  const [isValid, setIsValid] = useState(false);
+  const [didCommit, setDidCommit] = useState(false);
+
+  const operatorsNotMinus = Operators.filter(op => op !== '-');
+
+  const updateCalc = input => {
+    let auxCalc = calc;
+    if (calc === SynErr) auxCalc = '';
+    if (
+      !(operatorsNotMinus.includes(input) && (auxCalc === '' || Operators.includes(auxCalc.slice(-1)))) &&
+      !(input === '-' && auxCalc.slice(-1) === '-') &&
+      !(input === '0' && auxCalc === '') &&
+      !(input === '0' && auxCalc.slice(-1) === '0' && Operators.includes(auxCalc.slice(-2, -1)))
+    ) {
+      setCalc(
+        auxCalc === '0' || (auxCalc.slice(-1) === '0' && Operators.includes(auxCalc.slice(-2, -1)))
+          ? auxCalc.slice(0, -1) + input
+          : auxCalc + input
+      );
+    }
+  };
+
+  useEffect(() => {
+    if (!didCommit) {
+      try {
+        setResult(
+          Operators.includes(calc.slice(-1)) ? eval(calc.slice(0, -1)).toString() : eval(calc).toString()
+        );
+        setIsValid(true);
+      } catch {
+        setIsValid(false);
+      }
+    } else {
+      setResult('');
+      setDidCommit(false);
+    }
+  }, [calc]);
+
+  const commitResult = () => {
+    console.log(isValid)
+    if (result === '' && isValid) return;
+    if (result !== calc) {
+      setDidCommit(true);
+    } else setResult('');
+    setCalc(isValid ? result : SynErr);
+  };
+
+  const deleteLast = () => {
+    if (calc !== '') setCalc(calc.slice(0, -1));
+  };
+
+  const deleteAll = () => {
+    setCalc('');
+    setResult('');
+  };
+
+  const generateDigits = () => {
+    const digits = [];
+    digits.push(<button onClick={() => deleteAll()}>AC</button>);
+    digits.push(<button onClick={() => deleteLast()}>DEL</button>);
+    Digits.forEach(dig => digits.push(<button onClick={() => updateCalc(dig.toString())}>{dig}</button>));
+    Other.forEach(dig => digits.push(<button onClick={() => updateCalc(dig.toString())}>{dig}</button>));
+    return digits;
+  };
+  const generateOperators = () => {
+    const operators = [];
+    Operators.forEach(op => operators.push(<button onClick={() => updateCalc(op.toString())}>{op}</button>));
+    operators.push(<button onClick={() => commitResult()}>=</button>);
+    return operators;
+  };
 
   return (
     <div className={styles.container}>
-      <UTLabel large semibold>
-        {i18.t('Home:title')}
-      </UTLabel>
-      <UTLabel className={styles.action}>{i18.t('Home:subtitle')}</UTLabel>
-      <UTButton onPress={goToQuotes}>{i18.t('Home:button')}</UTButton>
+      <Calculator result={result} calc={calc} digits={generateDigits()} operators={generateOperators()} />
     </div>
   );
 };

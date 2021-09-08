@@ -2,15 +2,62 @@
 @import '_colors.scss';
 
 .container {
-  align-items: center;
   display: flex;
   flex-direction: column;
-  height: calc(100% - #{$topbar-heigth});
-  justify-content: flex-start;
-  padding: 40px 20px;
-  width: 100%;
+  margin-top: 10vh;
+  max-width: 600px;
+  max-height: 400px;
+  background-color: $black;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0px 2px 64px rgba(0, 0, 0, 0.3);
+}
+.calculatorDisplay {
+  padding-right: 12px;
+  display: flex;
+  flex-direction: column;
+  height: 70px;
+  justify-content: center;
+  align-items: flex-end;
+  align-content: center;
+  background-color: $gray;
+  color: $disabled-gray;
+  font-size: 25px;
+  font-weight: 300;
+}
+.result {
+  font-size: 15px;
+}
+.buttons {
+  display: flex;
+  flex-direction: row;
+}
+.digits {
+  display: flex;
+  flex-wrap: wrap;
+  flex: 0 0 75%;
+}
+.digits button{
+  flex: 0 0 33.33333%;
+}
+button {
+  appearance: none;
+  border: none;
+  padding: 15px;
 }
 
-.action {
-  margin: 40px;
+button:hover {
+  opacity: 0.8;
 }
+
+.operators {
+  display: flex;
+  flex-grow: 100;
+  flex-flow: column;
+}
+
+.operators button {
+  background-color: $input-primary;
+  font-weight: 600
+}
+
