@@ -3,7 +3,7 @@ import { string, arrayOf, elementType } from 'prop-types';
 
 import styles from './styles.module.scss';
 
-const Calculator = ({ result, digits, calc, operators }) => (
+const CalculatorLayout = ({ result, digits, calc, operators }) => (
   <div>
     <div className={styles.calculatorDisplay}>
       {result ? <div className={styles.result}>{result}</div> : ''}
@@ -16,11 +16,11 @@ const Calculator = ({ result, digits, calc, operators }) => (
   </div>
 );
 
-Calculator.propTypes = {
+CalculatorLayout.propTypes = {
   result: string,
   calc: string,
   digits: arrayOf(elementType),
   operators: arrayOf(elementType)
 };
 
-export default Calculator;
+export default CalculatorLayout;

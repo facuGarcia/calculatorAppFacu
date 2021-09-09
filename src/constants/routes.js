@@ -1,2 +1,2 @@
-export const HOME = '/';
+export const CALCULATOR = '/';
 export const QUOTES = '/quotes';
