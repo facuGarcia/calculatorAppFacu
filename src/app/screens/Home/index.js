@@ -1,27 +1,17 @@
 /* eslint-disable no-eval */
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import Calculator from './layout';
 import { Digits, Other, Operators, SynErr } from './constants.js';
 import styles from './styles.module.scss';
+import useMutableState from './hooks/use-mutable-state';
 
 const Home = () => {
-  const [calc, setCalc] = useState('');
-  const calcRef = useRef(calc);
-  calcRef.current = calc;
-
-  const [result, setResult] = useState('');
-  const resultRef = useRef(result);
-  resultRef.current = result;
-
-  const [isValid, setIsValid] = useState(false);
-  const isValidRef = useRef(isValid);
-  isValidRef.current = isValid;
-
+  const [calcRef, setCalc] = useMutableState('');
+  const [resultRef, setResult] = useMutableState('');
+  const [isValidRef, setIsValid] = useMutableState(false);
   const [didCommit, setDidCommit] = useState(false);
-  const didCommitRef = useRef(didCommit);
-  didCommitRef.current = didCommit;
 
   const operatorsNotMinus = Operators.filter(op => op !== '-');
 
@@ -43,7 +33,7 @@ const Home = () => {
   };
 
   useEffect(() => {
-    if (!didCommitRef.current) {
+    if (!didCommit) {
       if (calcRef.current === '') {
         setResult('');
       } else {
@@ -81,7 +71,6 @@ const Home = () => {
     setResult('');
   };
   const onKeyDown = e => {
-    console.log(e)
     if (Digits.includes(e.key) || Other.includes(e.key) || Operators.includes(e.key)) {
       updateCalc(e.key);
     } else if (e.key === 'Enter' || e.key === '=') {
@@ -90,8 +79,10 @@ const Home = () => {
       deleteLast();
     }
   };
+
   useEffect(() => {
     window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
   }, []);
 
   const generateDigits = () => {
@@ -111,7 +102,12 @@ const Home = () => {
 
   return (
     <div className={styles.container}>
-      <Calculator result={result} calc={calc} digits={generateDigits()} operators={generateOperators()} />
+      <Calculator
+        result={resultRef.current}
+        calc={calcRef.current}
+        digits={generateDigits()}
+        operators={generateOperators()}
+      />
     </div>
   );
 };
