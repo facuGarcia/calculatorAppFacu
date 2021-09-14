@@ -15,8 +15,12 @@ const RecordLayout = ({ operations }) => {
       <div className={styles.recordTitle}>Historial</div>
       <div className={styles.operations}>{operations}</div>
       <div className={styles.recordButtons}>
-        <button className={styles.clear} onClick={() => dispatch(OperationActions.removeAllOperations())}>Limpiar</button>
-        <button className={styles.recToCalcButton} onClick={() => dispatch(push('/'))}>Volver a la calculadora</button>
+        <button className={styles.clear} onClick={() => dispatch(OperationActions.removeAllOperations())}>
+          Limpiar
+        </button>
+        <button className={styles.recToCalcButton} onClick={() => dispatch(push('/'))}>
+          Volver a la calculadora
+        </button>
       </div>
     </div>
   );

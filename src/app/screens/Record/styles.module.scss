@@ -51,9 +51,9 @@
     background-color: $input-primary;
     border: 0;
     border-radius: 0;
-    height: 60px;
     font-size: 26px;
     font-weight: 500;
+    height: 60px;
     width: 60px;
   }
 }
@@ -70,18 +70,18 @@
   width: 100%;
 }
 
-.clear{
+.clear {
   appearance: none;
   background-color: $gray;
-  color: $disabled-gray;
   border: 0;
   border-radius: 0;
+  color: $disabled-gray;
   font-size: 16px;
   font-weight: 300;
   padding: 10px;
   text-align: left;
   width: 50%;
-  
+
   &:hover {
     background-color: $black;
   }
@@ -90,9 +90,9 @@
 .recToCalcButton {
   appearance: none;
   background-color: $gray;
-  color: $disabled-gray;
   border: 0;
   border-radius: 0;
+  color: $disabled-gray;
   font-size: 16px;
   font-weight: 300;
   padding: 10px;
