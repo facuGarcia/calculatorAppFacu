@@ -6,7 +6,7 @@ import RecordLayout from './layout';
 import styles from './styles.module.scss';
 
 const Record = ({ operations }) => {
-  const formatedOperations = operations.map(op => <div className={styles.op}>{op}</div>);
+  const formatedOperations = operations.map(operator => <div className={styles.operator}>{operator}</div>);
   return (
     <div className={styles.container}>
       <RecordLayout operations={formatedOperations} />
