@@ -39,31 +39,31 @@
   display: flex;
   flex: 0 0 75%;
   flex-wrap: wrap;
-}
 
-.digits button {
-  flex: 33.33333%;
+  & button {
+    flex: 33.33333%;
+  }
 }
 
 .calculatorBotton {
   appearance: none;
   border: 0;
   padding: 15px;
-}
 
-.calculatorBotton:hover {
-  opacity: 0.8;
+  &:hover {
+    opacity: 0.8;
+  }
 }
 
 .operators {
   display: flex;
   flex-flow: column;
   flex-grow: 100;
-}
 
-.operators button {
-  background-color: $input-primary;
-  font-weight: 600;
+  & button {
+    background-color: $input-primary;
+    font-weight: 600;
+  }
 }
 
 .calcToRecButton {
@@ -77,8 +77,8 @@
   font-weight: 300;
   padding: 10px;
   width: 100%;
+
   &:hover {
     background-color: $black;
   }
 }
-
