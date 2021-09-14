@@ -144,8 +144,4 @@ const Calculator = dispatch => {
   );
 };
 
-const mapStateToProps = store => ({
-  operations: store.operationsRecord
-});
-
-export default connect(mapStateToProps)(Calculator);
+export default connect()(Calculator);

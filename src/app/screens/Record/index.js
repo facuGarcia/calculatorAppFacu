@@ -1,12 +1,20 @@
+import { Button } from '@material-ui/core';
 import { arrayOf, elementType } from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 
+import OperationActions from 'redux/operations/actions';
+
 import RecordLayout from './layout';
 import styles from './styles.module.scss';
 
-const Record = ({ operations }) => {
-  const formatedOperations = operations.map(operator => <div className={styles.operator}>{operator}</div>);
+const Record = ({ operations, dispatch }) => {
+  const formatedOperations = operations.map(operator => (
+    <div className={styles.operator}>
+      <Button onClick={() => dispatch(OperationActions.removeOperation(operator))}>X</Button>
+      {operator}
+    </div>
+  ));
   return (
     <div className={styles.container}>
       <RecordLayout operations={formatedOperations} />
