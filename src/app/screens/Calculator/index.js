@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import CalculatorLayout from './layout';
-import { DIGITS, OTHER, OPERATORS, OPERATORS_NOT_MINUS, SYN_ERR } from './constants.js';
+import { DIGITS, SIGNS, OPERATORS, OPERATORS_NOT_MINUS, SYN_ERR } from './constants.js';
 import styles from './styles.module.scss';
 import useMutableState from './hooks/useMutableState';
 
@@ -69,7 +69,7 @@ const Calculator = () => {
     setResult('');
   };
   const onKeyDown = e => {
-    if (DIGITS.includes(e.key) || OTHER.includes(e.key) || OPERATORS.includes(e.key)) {
+    if (DIGITS.includes(e.key) || SIGNS.includes(e.key) || OPERATORS.includes(e.key)) {
       updateCalc(e.key);
     } else if (e.key === 'Enter' || e.key === '=') {
       commitResult();
@@ -100,7 +100,7 @@ const Calculator = () => {
         </button>
       )
     );
-    OTHER.forEach(dig =>
+    SIGNS.forEach(dig =>
       digits.push(
         <button className={styles.calculatorBotton} onClick={() => updateCalc(dig.toString())}>
           {dig}
@@ -110,9 +110,9 @@ const Calculator = () => {
     return digits;
   };
   const generateOperators = () => {
-    const operators = OPERATORS.map(op => (
-      <button className={styles.calculatorBotton} onClick={() => updateCalc(op.toString())}>
-        {op}
+    const operators = OPERATORS.map(operator => (
+      <button className={styles.calculatorBotton} onClick={() => updateCalc(operator.toString())}>
+        {operator}
       </button>
     ));
     operators.push(

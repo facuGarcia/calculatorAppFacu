@@ -13,9 +13,9 @@
   width: 100%;
 }
 
-.calculatorDisplay {
+.recordTitle {
   align-content: center;
-  align-items: flex-end;
+  align-items: flex-start;
   background-color: $gray;
   color: $disabled-gray;
   display: flex;
@@ -24,45 +24,37 @@
   font-weight: 300;
   height: 70px;
   justify-content: center;
-  padding-right: 12px;
+  padding-left: 12px;
 }
 
-.result {
-  font-size: 15px;
-}
-
-.buttons {
+.operations {
+  align-items: flex-end;
+  background-color: $plain-white;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  min-height: 3px; 
 }
 
-.digits {
-  display: flex;
-  flex: 0 0 75%;
-  flex-wrap: wrap;
-}
-
-.digits button {
-  flex: 0 0 33.33333%;
-}
-
-.calculatorBotton {
+.operator {
   appearance: none;
   border: 0;
-  padding: 15px;
-}
-
-.calculatorBotton:hover {
-  opacity: 0.8;
-}
-
-.operators {
   display: flex;
-  flex-flow: column;
-  flex-grow: 100;
+  flex: 0 0 100%;
+  flex-direction: row-reverse;
+  padding: 15px;
+  width: 100%;
 }
 
-.operators button {
-  background-color: $input-primary;
-  font-weight: 600;
+.recToCalcdButton {
+  align-items: flex-start;
+  appearance: none;
+  background-color: $gray;
+  border: 0;
+  color: $disabled-gray;
+  display: flex;
+  font-size: 20px;
+  font-weight: 300;
+  padding: 12px;
+  width: 100%;
 }

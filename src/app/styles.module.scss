@@ -1,14 +1,14 @@
 .container {
+  align-self: center;
   display: flex;
   flex-direction: column;
-  align-self: center;
   padding: 25px;
 }
 
 .wrapper {
+  align-content: flex-end;
   display: flex;
   flex-direction: column;
-  align-content: flex-end;
   height: 100vh;
   width: 100vw;
 }
