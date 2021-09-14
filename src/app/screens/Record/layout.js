@@ -1,7 +1,7 @@
 import React from 'react';
-import { string, arrayOf, elementType } from 'prop-types';
 import { push } from 'connected-react-router';
 import { useDispatch } from 'react-redux';
+import { arrayOf, elementType } from 'prop-types';
 
 import styles from './styles.module.scss';
 
@@ -17,6 +17,10 @@ const RecordLayout = ({ operations }) => {
       </button>
     </div>
   );
+};
+
+RecordLayout.propTypes = {
+  operations: arrayOf(elementType)
 };
 
 RecordLayout.propTypes = {};

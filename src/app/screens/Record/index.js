@@ -1,3 +1,4 @@
+import { arrayOf, elementType } from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 
@@ -11,6 +12,10 @@ const Record = ({ operations }) => {
       <RecordLayout operations={formatedOperations} />
     </div>
   );
+};
+
+Record.propTypes = {
+  operations: arrayOf(elementType)
 };
 
 const mapStateToProps = state => ({ operations: state.operationsRecord.operations });
