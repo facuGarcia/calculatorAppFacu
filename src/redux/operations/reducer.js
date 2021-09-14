@@ -4,13 +4,14 @@ import { completeReducer, createReducer } from 'redux-recompose';
 import { actions } from './actions';
 
 export const defaultState = {
-  quotes: []
+  operations: []
 };
 
 const reducerDescription = {
-  primaryActions: [actions.GET_QUOTES],
+  primaryActions: [actions.ADD_OPERATION],
   override: {
-    [actions.RESET_QUOTES]: state => Immutable.merge(state, { quotes: defaultState.quotes })
+    [actions.ADD_OPERATION]: (state, action) =>
+      Immutable.merge(state, { operations: state.operations.concat(action.payload) })
   }
 };
 

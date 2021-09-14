@@ -5,6 +5,7 @@
   display: flex;
   flex-direction: column;
   margin-top: 10vh;
+  width: 100%;
   max-width: 600px;
   background-color: $black;
   border-radius: 15px;
@@ -12,13 +13,13 @@
   box-shadow: 0 2px 64px $box-color;
 }
 
-.calculatorDisplay {
-  padding-right: 12px;
+.recordTitle {
+  padding-left: 12px;
   display: flex;
   flex-direction: column;
   height: 70px;
   justify-content: center;
-  align-items: flex-end;
+  align-items: flex-start;
   align-content: center;
   background-color: $gray;
   color: $disabled-gray;
@@ -26,48 +27,26 @@
   font-weight: 300;
 }
 
-.result {
-  font-size: 15px;
-}
-
-.buttons {
+.operations {
+  min-height: 3px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: flex-end;
+  background-color: $plain-white;
 }
 
-.digits {
+.op {
   display: flex;
-  flex-wrap: wrap;
-  flex: 0 0 75%;
-}
-
-.digits button {
-  flex: 33.33333%;
-}
-
-.calculatorBotton {
+  flex-direction: row-reverse;
+  flex: 0 0 100%;
+  width: 100%;
   appearance: none;
   border: 0;
   padding: 15px;
 }
 
-.calculatorBotton:hover {
-  opacity: 0.8;
-}
-
-.operators {
-  display: flex;
-
-  flex-grow: 100;
-  flex-flow: column;
-}
-
-.operators button {
-  background-color: $input-primary;
-  font-weight: 600;
-}
-
-.calcToRecButton {
+.recToCalcdButton {
   display: flex;
   align-items: flex-start;
   appearance: none;

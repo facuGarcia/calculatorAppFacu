@@ -2,12 +2,14 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
+import OperationActions from 'redux/operations/actions';
+
 import CalculatorLayout from './layout';
 import { DIGITS, OTHER, OPERATORS, OPERATORS_NOT_MINUS, SYN_ERR } from './constants.js';
 import styles from './styles.module.scss';
 import useMutableState from './hooks/useMutableState';
 
-const Calculator = () => {
+const Calculator = dispatch => {
   const [calcRef, setCalc] = useMutableState('');
   const [resultRef, setResult] = useMutableState('');
   const [isValidRef, setIsValid] = useMutableState(false);
@@ -56,7 +58,14 @@ const Calculator = () => {
     if (resultRef.current === '' && isValidRef.current) return;
     if (resultRef.current !== calcRef.current) {
       setDidCommit(true);
-      setCalc(isValidRef.current ? resultRef.current : SYN_ERR);
+      if (isValidRef.current) {
+        dispatch.dispatch(OperationActions.addOperation(`${calcRef.current} = ${resultRef.current}`), [
+          dispatch
+        ]);
+        setCalc(resultRef.current);
+      } else {
+        setCalc(SYN_ERR);
+      }
     } else setResult('');
   };
 
@@ -135,4 +144,8 @@ const Calculator = () => {
   );
 };
 
-export default connect()(Calculator);
+const mapStateToProps = store => ({
+  operations: store.operationsRecord
+});
+
+export default connect(mapStateToProps)(Calculator);
