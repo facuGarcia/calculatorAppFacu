@@ -1,4 +1,3 @@
-import { Button } from '@material-ui/core';
 import { arrayOf, elementType } from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
@@ -9,10 +8,22 @@ import RecordLayout from './layout';
 import styles from './styles.module.scss';
 
 const Record = ({ operations, dispatch }) => {
-  const formatedOperations = operations.map(operator => (
+  const handdleFocus = index => {
+    window.addEventListener('keypress', function handler(event) {
+      if (event.key === 'Enter') {
+        event.currentTarget.removeEventListener(event.type, handler);
+        document.getElementById(index).blur();
+        dispatch(OperationActions.modifyOperation(index, document.getElementById(index).textContent));
+      }
+    });
+  };
+
+  const formatedOperations = operations.map(operation => (
     <div className={styles.operator}>
-      <Button onClick={() => dispatch(OperationActions.removeOperation(operator))}>X</Button>
-      {operator}
+      <button onClick={() => dispatch(OperationActions.removeOperation(operation.index))}>X</button>
+      <div contentEditable id={operation.index} onFocus={() => handdleFocus(operation.index)}>
+        {operation.expression}
+      </div>
     </div>
   ));
   return (
