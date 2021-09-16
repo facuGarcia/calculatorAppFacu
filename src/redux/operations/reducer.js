@@ -3,34 +3,57 @@ import { completeReducer, createReducer } from 'redux-recompose';
 
 import Operation from 'utils/operationClass';
 
+import OperationsService from '../../services/OperationsService.js';
+
 import { actions } from './actions';
 
 export const defaultState = {
-  operations: [],
-  currentIndex: 0
+  operationsRecord: {
+    currentId: 0,
+    operations: []
+  }
 };
 
 const reducerDescription = {
-  primaryActions: [actions.ADD_OPERATION, actions.REMOVE_OPERATION],
+  primaryActions: [actions.FETCH_OPERATIONS],
   override: {
-    [actions.ADD_OPERATION]: (state, action) =>
-      Immutable.merge(state, {
-        operations: state.operations.concat(new Operation(state.currentIndex, action.payload)),
-        currentIndex: state.currentIndex + 1
-      }),
-    [actions.REMOVE_OPERATION]: (state, action) =>
-      Immutable.merge(state, {
-        operations: state.operations.filter(operation => operation.index !== action.payload)
-      }),
-    [actions.REMOVE_ALL_OPERATIONS]: state => Immutable.merge(state, { operations: defaultState.operations }),
-    [actions.MODIFY_OPERATION]: (state, action) =>
-      Immutable.merge(state, {
-        operations: state.operations.map(operation =>
-          operation.index !== action.payload.index
-            ? operation
-            : new Operation(action.payload.index, action.payload.newExpression)
-        )
-      })
+    [actions.ADD_OPERATION]: (state, action) => {
+      OperationsService.postOperations(new Operation(state.currentId, action.payload));
+      return Immutable.merge(state, {
+        operationsRecord: {
+          operations: state.operationsRecord.operations.concat(
+            new Operation(state.operationsRecord.currentId, action.payload)
+          ),
+          currentId: state.operationsRecord.currentId + 1
+        }
+      });
+    },
+    [actions.REMOVE_OPERATION]: (state, action) => {
+      OperationsService.deleteOperations(action.payload);
+      return Immutable.merge(state, {
+        operationsRecord: {
+          operations: state.operationsRecord.operations.filter(
+            operation => operation.index !== action.payload
+          )
+        }
+      });
+    },
+    [actions.REMOVE_ALL_OPERATIONS]: state => {
+      OperationsService.deleteOperations(-1);
+      return Immutable.merge(state, { operationsRecord: defaultState.operationsRecord });
+    },
+    [actions.MODIFY_OPERATION]: (state, action) => {
+      OperationsService.putOperations(new Operation(action.payload.index, action.payload.newExpression));
+      return Immutable.merge(state, {
+        operationsRecord: {
+          operations: state.operationsRecord.operations.map(operation =>
+            operation.index !== action.payload.index
+              ? operation
+              : new Operation(action.payload.index, action.payload.newExpression)
+          )
+        }
+      });
+    }
   }
 };
 
