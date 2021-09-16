@@ -85,8 +85,8 @@ const Calculator = ({ dispatch }) => {
     }
   };
   useEffect(() => {
-    dispatch(OperationActions.fetchOperations());
     window.addEventListener('keydown', onKeyDown);
+    dispatch(OperationActions.fetchOperations());
   }, []);
 
   const generateDigits = () => {

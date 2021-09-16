@@ -1,6 +1,6 @@
 class Operation {
-  constructor(index, expression) {
-    this.index = index;
+  constructor(id, expression) {
+    this.id = id;
     this.expression = expression;
   }
 }

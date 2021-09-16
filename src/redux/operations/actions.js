@@ -1,4 +1,3 @@
-
 import { createTypes, completeTypes } from 'redux-recompose';
 
 import OperationsService from 'services/OperationsService';
@@ -28,6 +27,7 @@ export const actionCreators = {
   fetchOperations: () => async dispatch => {
     dispatch({ type: actions.FETCH_OPERATIONS, target: 'operationsRecord' });
     const response = await OperationsService.getOperations();
+    console.log(response)
     if (response.ok) {
       dispatch(privateActionCreators.fetchOperationsSuccess(response.data));
     } else {
@@ -38,8 +38,8 @@ export const actionCreators = {
   removeOperation: operation => async dispatch =>
     dispatch({ type: actions.REMOVE_OPERATION, payload: operation }),
   removeAllOperations: () => async dispatch => dispatch({ type: actions.REMOVE_ALL_OPERATIONS }),
-  modifyOperation: (index, newExpression) => async dispatch =>
-    dispatch({ type: actions.MODIFY_OPERATION, payload: { index, newExpression } })
+  modifyOperation: (id, newExpression) => async dispatch =>
+    dispatch({ type: actions.MODIFY_OPERATION, payload: { id, newExpression } })
 };
 
 export default actionCreators;

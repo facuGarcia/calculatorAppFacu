@@ -8,20 +8,20 @@ import RecordLayout from './layout';
 import styles from './styles.module.scss';
 
 const Record = ({ operations, dispatch }) => {
-  const handdleFocus = index => {
+  const handdleFocus = id => {
     window.addEventListener('keypress', function handler(event) {
       if (event.key === 'Enter') {
         event.currentTarget.removeEventListener(event.type, handler);
-        document.getElementById(index).blur();
-        dispatch(OperationActions.modifyOperation(index, document.getElementById(index).textContent));
+        document.getElementById(id).blur();
+        dispatch(OperationActions.modifyOperation(id, document.getElementById(id).textContent));
       }
     });
   };
 
   const formatedOperations = operations.map(operation => (
     <div className={styles.operator}>
-      <button onClick={() => dispatch(OperationActions.removeOperation(operation.index))}>X</button>
-      <div contentEditable id={operation.index} onFocus={() => handdleFocus(operation.index)}>
+      <button onClick={() => dispatch(OperationActions.removeOperation(operation.id))}>X</button>
+      <div contentEditable id={operation.id} onFocus={() => handdleFocus(operation.id)}>
         {operation.expression}
       </div>
     </div>

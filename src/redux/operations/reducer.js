@@ -32,9 +32,7 @@ const reducerDescription = {
       OperationsService.deleteOperations(action.payload);
       return Immutable.merge(state, {
         operationsRecord: {
-          operations: state.operationsRecord.operations.filter(
-            operation => operation.index !== action.payload
-          )
+          operations: state.operationsRecord.operations.filter(operation => operation.id !== action.payload)
         }
       });
     },
@@ -43,13 +41,13 @@ const reducerDescription = {
       return Immutable.merge(state, { operationsRecord: defaultState.operationsRecord });
     },
     [actions.MODIFY_OPERATION]: (state, action) => {
-      OperationsService.putOperations(new Operation(action.payload.index, action.payload.newExpression));
+      OperationsService.putOperations(new Operation(action.payload.id, action.payload.newExpression));
       return Immutable.merge(state, {
         operationsRecord: {
           operations: state.operationsRecord.operations.map(operation =>
-            operation.index !== action.payload.index
+            operation.id !== action.payload.id
               ? operation
-              : new Operation(action.payload.index, action.payload.newExpression)
+              : new Operation(action.payload.id, action.payload.newExpression)
           )
         }
       });
