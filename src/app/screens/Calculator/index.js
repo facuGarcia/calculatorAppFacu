@@ -98,45 +98,6 @@ const Calculator = dispatch => {
 
   const generateDigits = () => {
     const digits = [];
-<<<<<<< HEAD
-    digits.push(
-      <button className={styles.calculatorBotton} onClick={() => deleteAll()}>
-        AC
-      </button>
-    );
-    digits.push(
-      <button className={styles.calculatorBotton} onClick={() => deleteLast()}>
-        DEL
-      </button>
-    );
-    DIGITS.forEach(dig =>
-      digits.push(
-        <button className={styles.calculatorBotton} onClick={() => updateCalc(dig.toString())}>
-          {dig}
-        </button>
-      )
-    );
-    SIGNS.forEach(dig =>
-      digits.push(
-        <button className={styles.calculatorBotton} onClick={() => updateCalc(dig.toString())}>
-          {dig}
-        </button>
-      )
-    );
-    return digits;
-  };
-  const generateOperators = () => {
-    const operators = OPERATORS.map(operator => (
-      <button className={styles.calculatorBotton} onClick={() => updateCalc(operator.toString())}>
-        {operator}
-      </button>
-    ));
-    operators.push(
-      <button className={styles.calculatorBotton} onClick={() => commitResult()}>
-        =
-      </button>
-    );
-=======
     digits.push(calculatorButtonRenderer(deleteAll, 'AC'));
     digits.push(calculatorButtonRenderer(deleteLast, 'DEL'));
     DIGITS.forEach(dig => digits.push(calculatorButtonRenderer(updateCalc, dig)));
@@ -146,7 +107,6 @@ const Calculator = dispatch => {
   const generateOperators = () => {
     const operators = OPERATORS.map(operator => calculatorButtonRenderer(updateCalc, operator));
     operators.push(calculatorButtonRenderer(commitResult, '='));
->>>>>>> Calculadora
     return operators;
   };
 
