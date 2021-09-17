@@ -90,8 +90,15 @@ const Calculator = dispatch => {
     window.addEventListener('keydown', onKeyDown);
   }, []);
 
+  const calculatorButtonRenderer = (action, text) => (
+    <button className={styles.calculatorBotton} onClick={() => action(text)}>
+      {text}
+    </button>
+  );
+
   const generateDigits = () => {
     const digits = [];
+<<<<<<< HEAD
     digits.push(
       <button className={styles.calculatorBotton} onClick={() => deleteAll()}>
         AC
@@ -129,6 +136,17 @@ const Calculator = dispatch => {
         =
       </button>
     );
+=======
+    digits.push(calculatorButtonRenderer(deleteAll, 'AC'));
+    digits.push(calculatorButtonRenderer(deleteLast, 'DEL'));
+    DIGITS.forEach(dig => digits.push(calculatorButtonRenderer(updateCalc, dig)));
+    SIGNS.forEach(dig => digits.push(calculatorButtonRenderer(updateCalc, dig)));
+    return digits;
+  };
+  const generateOperators = () => {
+    const operators = OPERATORS.map(operator => calculatorButtonRenderer(updateCalc, operator));
+    operators.push(calculatorButtonRenderer(commitResult, '='));
+>>>>>>> Calculadora
     return operators;
   };
 
