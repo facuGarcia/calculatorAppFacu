@@ -6,6 +6,7 @@ import CalculatorLayout from './layout';
 import { DIGITS, SIGNS, OPERATORS, OPERATORS_NOT_MINUS, SYN_ERR } from './constants.js';
 import styles from './styles.module.scss';
 import useMutableState from './hooks/useMutableState';
+import { func, string } from 'prop-types';
 
 const Calculator = () => {
   const [calcRef, setCalc] = useMutableState('');
@@ -81,45 +82,23 @@ const Calculator = () => {
     window.addEventListener('keydown', onKeyDown);
   }, []);
 
+  const calculatorButtonRenderer = (action, text) => (
+    <button className={styles.calculatorBotton} onClick={() => action(text)}>
+      {text}
+    </button>
+  );
+
   const generateDigits = () => {
     const digits = [];
-    digits.push(
-      <button className={styles.calculatorBotton} onClick={() => deleteAll()}>
-        AC
-      </button>
-    );
-    digits.push(
-      <button className={styles.calculatorBotton} onClick={() => deleteLast()}>
-        DEL
-      </button>
-    );
-    DIGITS.forEach(dig =>
-      digits.push(
-        <button className={styles.calculatorBotton} onClick={() => updateCalc(dig.toString())}>
-          {dig}
-        </button>
-      )
-    );
-    SIGNS.forEach(dig =>
-      digits.push(
-        <button className={styles.calculatorBotton} onClick={() => updateCalc(dig.toString())}>
-          {dig}
-        </button>
-      )
-    );
+    digits.push(calculatorButtonRenderer(deleteAll, 'AC'));
+    digits.push(calculatorButtonRenderer(deleteLast, 'DEL'));
+    DIGITS.forEach(dig => digits.push(calculatorButtonRenderer(updateCalc, dig)));
+    SIGNS.forEach(dig => digits.push(calculatorButtonRenderer(updateCalc, dig)));
     return digits;
   };
   const generateOperators = () => {
-    const operators = OPERATORS.map(operator => (
-      <button className={styles.calculatorBotton} onClick={() => updateCalc(operator.toString())}>
-        {operator}
-      </button>
-    ));
-    operators.push(
-      <button className={styles.calculatorBotton} onClick={() => commitResult()}>
-        =
-      </button>
-    );
+    const operators = OPERATORS.map(operator => calculatorButtonRenderer(updateCalc, operator));
+    operators.push(calculatorButtonRenderer(commitResult, '='));
     return operators;
   };
 
