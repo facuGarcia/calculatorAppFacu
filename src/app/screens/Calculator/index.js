@@ -6,7 +6,6 @@ import CalculatorLayout from './layout';
 import { DIGITS, SIGNS, OPERATORS, OPERATORS_NOT_MINUS, SYN_ERR } from './constants.js';
 import styles from './styles.module.scss';
 import useMutableState from './hooks/useMutableState';
-import { func, string } from 'prop-types';
 
 const Calculator = () => {
   const [calcRef, setCalc] = useMutableState('');
