@@ -6,39 +6,13 @@ import OperationActions from 'redux/operations/actions';
 
 import RecordLayout from './layout';
 import styles from './styles.module.scss';
+import handdleFocus from './eventHandlers/eventHandlers';
 
 const Record = ({ operations, dispatch }) => {
-  /*
-  const handdleFocus = index => {
-    document.getElementById(index).addEventListener('blur', function handler(event) {
-      event.currentTarget.removeEventListener('blur', handler);
-      window.removeEventListener('Enter', )
-      dispatch(OperationActions.modifyOperation(index, document.getElementById(index).textContent));
-    });
-
-    window.addEventListener('keypress', function handler(event) {
-      if (event.key === 'Enter') {
-        event.currentTarget.removeEventListener(event.type, handler);
-        document.getElementById(index).blur();
-      }
-    });
-  };
-  */
-
-  const handler = (event, index) => {
-    if (event.key === 'Enter') {
-      console.log({ event });
-      event.currentTarget.removeEventListener(event.type, handler, true);
-      document.getElementById(index).blur();
-      dispatch(OperationActions.modifyOperation(index, document.getElementById(index).textContent));
-    }
-  };
-  const handdleFocus = index => window.addEventListener('keypress', event => handler(event, index), true);
-
   const formatedOperations = operations.map(operation => (
     <div className={styles.operator}>
       <button onClick={() => dispatch(OperationActions.removeOperation(operation.index))}>X</button>
-      <div contentEditable id={operation.index} onFocus={() => handdleFocus(operation.index)}>
+      <div contentEditable id={operation.index} onFocus={() => handdleFocus(operation.index, dispatch)}>
         {operation.expression}
       </div>
     </div>
