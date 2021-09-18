@@ -7,13 +7,13 @@ $shadow: 0 0 7px 0 rgba(122, 122, 122, 0.81);
   align-items: center;
   background-color: $topbar-background;
   box-shadow: $shadow;
+  bottom: 0;
   display: flex;
+  flex-direction: row;
   height: 50px;
-  margin-top: -50px;
-  justify-content: space-between;
-  padding: 20px;
+  justify-content: center;
+  position: absolute;
   width: 100%;
-  z-index: 10;
 }
 
 .logo {

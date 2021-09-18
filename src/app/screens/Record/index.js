@@ -6,22 +6,13 @@ import OperationActions from 'redux/operations/actions';
 
 import RecordLayout from './layout';
 import styles from './styles.module.scss';
+import handdleFocus from './eventHandlers/eventHandlers';
 
 const Record = ({ operations, dispatch }) => {
-  const handdleFocus = id => {
-    window.addEventListener('keypress', function handler(event) {
-      if (event.key === 'Enter') {
-        event.currentTarget.removeEventListener(event.type, handler);
-        document.getElementById(id).blur();
-        dispatch(OperationActions.modifyOperation(id, document.getElementById(id).textContent));
-      }
-    });
-  };
-
   const formatedOperations = operations.map(operation => (
     <div className={styles.operator}>
       <button onClick={() => dispatch(OperationActions.removeOperation(operation.id))}>X</button>
-      <div contentEditable id={operation.id} onFocus={() => handdleFocus(operation.id)}>
+      <div contentEditable id={operation.id} onFocus={() => handdleFocus(operation.id, dispatch)}>
         {operation.expression}
       </div>
     </div>
