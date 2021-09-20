@@ -79,6 +79,7 @@ const Calculator = ({ dispatch }) => {
     if (DIGITS.includes(e.key) || SIGNS.includes(e.key) || OPERATORS.includes(e.key)) {
       updateCalc(e.key);
     } else if (e.key === 'Enter' || e.key === '=') {
+      document.activeElement.blur();
       commitResult();
     } else if (e.key === 'Backspace') {
       deleteLast();
