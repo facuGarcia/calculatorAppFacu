@@ -6,8 +6,8 @@ $shadow: 0 0 7px 0 rgba(122, 122, 122, 0.81);
 .showMessage {
   align-items: center;
   background-color: $topbar-background;
-  box-shadow: $shadow;
   bottom: 0;
+  box-shadow: $shadow;
   display: flex;
   flex-direction: row;
   height: 50px;
