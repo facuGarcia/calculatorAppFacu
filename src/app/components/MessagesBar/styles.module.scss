@@ -21,14 +21,14 @@ $shadow: 0 0 7px 0 rgba(122, 122, 122, 0.81);
     overflow: hidden;
   }
 }
-// transition: height 0.5s ease-in-out;
+
 .showMessage {
   @extend %message;
 }
 
 .hiddenMessage {
   @extend %message;
-  height: 0px;
+  height: 0;
 }
 
 .logo {
