@@ -11,7 +11,7 @@ export const defaultState = {
     operations: []
   },
   messagesRecord: {
-    message: ''
+    message: 'Bienvenido'
   }
 };
 
@@ -44,7 +44,8 @@ const reducerDescription = {
               : new Operation(action.payload.id, action.payload.newExpression)
           )
         }
-      })
+      }),
+    [actions.CLEAR_MESSAGE]: state => Immutable.merge(state, { messagesRecord: '' })
   }
 };
 

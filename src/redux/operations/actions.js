@@ -6,7 +6,7 @@ import Operation from 'utils/operationClass';
 export const actions = createTypes(
   completeTypes(
     ['FETCH_OPERATIONS', 'USE_METHOD'],
-    ['ADD_OPERATION', 'REMOVE_OPERATION', 'REMOVE_ALL_OPERATIONS', 'MODIFY_OPERATION']
+    ['ADD_OPERATION', 'REMOVE_OPERATION', 'REMOVE_ALL_OPERATIONS', 'MODIFY_OPERATION', 'CLEAR_MESSAGE']
   ),
   '@@OPERATIONS'
 );
@@ -48,6 +48,7 @@ export const actionCreators = {
     dispatch({ type: actions.USE_METHOD, target: 'messagesRecord' });
     const response = await action(payload);
     if (response.ok) {
+      dispatch({ type: actions.CLEAR_MESSAGE });
       dispatch(privateActionCreators.useMethodSuccess(response.data));
     } else {
       dispatch(privateActionCreators.useMethodFailure(response.error));

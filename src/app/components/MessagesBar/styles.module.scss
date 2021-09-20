@@ -3,7 +3,7 @@
 
 $shadow: 0 0 7px 0 rgba(122, 122, 122, 0.81);
 
-.showMessage {
+%message {
   align-items: center;
   background-color: $topbar-background;
   bottom: 0;
@@ -13,11 +13,22 @@ $shadow: 0 0 7px 0 rgba(122, 122, 122, 0.81);
   height: 50px;
   justify-content: center;
   position: absolute;
+  transition: height 0.5s ease-in-out;
   width: 100%;
+
+  & * {
+    max-height: 100%;
+    overflow: hidden;
+  }
+}
+// transition: height 0.5s ease-in-out;
+.showMessage {
+  @extend %message;
 }
 
 .hiddenMessage {
-  display: none;
+  @extend %message;
+  height: 0px;
 }
 
 .logo {
