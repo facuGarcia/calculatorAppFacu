@@ -3,7 +3,7 @@
 
 $shadow: 0 0 7px 0 rgba(122, 122, 122, 0.81);
 
-.container {
+.showMessage {
   align-items: center;
   background-color: $topbar-background;
   box-shadow: $shadow;
@@ -14,6 +14,10 @@ $shadow: 0 0 7px 0 rgba(122, 122, 122, 0.81);
   justify-content: center;
   position: absolute;
   width: 100%;
+}
+
+.hiddenMessage {
+  display: none;
 }
 
 .logo {
