@@ -1,0 +1,79 @@
+@import 'scss/variables/_sizes.scss';
+@import '_colors.scss';
+
+.container {
+  background-color: $black;
+  border-radius: 15px;
+  box-shadow: 0 2px 64px $box-color;
+  display: flex;
+  flex-direction: column;
+  margin-top: 10vh;
+  max-width: 600px;
+  overflow: hidden;
+  width: 100%;
+}
+
+.surveyTitle {
+    align-content: center;
+    align-items: flex-start;
+    background-color: $gray;
+    color: $disabled-gray;
+    display: flex;
+    flex-direction: column;
+    font-size: 25px;
+    font-weight: 300;
+    height: 70px;
+    justify-content: center;
+    padding-left: 12px;
+  }
+
+.formContainer {
+    background-color: $plain-white;
+}
+
+.formField {
+    width: 80%; 
+    margin: 15px;     
+}
+
+  .surveyButtons {
+    align-items: stretch;
+    background-color: $gray;
+    border: 0;
+    color: $disabled-gray;
+    display: flex;
+    font-size: 16px;
+    font-weight: 300;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  %surveyButtons {
+    appearance: none;
+    background-color: $gray;
+    border: 0;
+    border-radius: 0;
+    color: $disabled-gray;
+    font-size: 16px;
+    font-weight: 300;
+    padding: 10px;
+    text-align: left;
+    width: 50%;
+  
+    &:hover {
+      background-color: $black;
+    }
+  }
+  
+  .submitButton {
+    @extend%surveyButtons;
+    text-align: left;
+    padding-left: 15px;
+  }
+
+  .survToCalcButton {
+    @extend%surveyButtons;
+      text-align: right;
+      padding-right: 15px;
+  }
+  

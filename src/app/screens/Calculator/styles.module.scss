@@ -67,19 +67,43 @@
   }
 }
 
-.calcToRecButton {
-  align-items: flex-start;
-  appearance: none;
+.calcButtons {
+  align-items: stretch;
   background-color: $gray;
   border: 0;
   color: $disabled-gray;
   display: flex;
   font-size: 16px;
   font-weight: 300;
-  padding: 10px;
+  justify-content: space-between;
   width: 100%;
+}
+
+%calcButtons {
+  appearance: none;
+  background-color: $gray;
+  border: 0;
+  border-radius: 0;
+  color: $disabled-gray;
+  font-size: 16px;
+  font-weight: 300;
+  padding: 10px;
+  text-align: left;
+  width: 50%;
 
   &:hover {
     background-color: $black;
   }
+}
+
+.calcToRecButton {
+  @extend%calcButtons;
+  text-align: left;
+  padding-left: 15px;
+}
+
+.calcToSurvcButton {
+  @extend%calcButtons;
+  text-align: right;
+  padding-right: 15px;
 }

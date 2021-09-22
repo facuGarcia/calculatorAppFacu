@@ -15,7 +15,10 @@ const RecordLayout = ({ operations }) => {
       <div className={styles.recordTitle}>Historial</div>
       <div className={styles.operations}>{operations}</div>
       <div className={styles.recordButtons}>
-        <button className={styles.clear} onClick={() => dispatch(OperationActions.removeAllOperations())}>
+        <button
+          className={styles.clearButton}
+          onClick={() => dispatch(OperationActions.removeAllOperations())}
+        >
           Limpiar
         </button>
         <button className={styles.recToCalcButton} onClick={() => dispatch(push('/'))}>
