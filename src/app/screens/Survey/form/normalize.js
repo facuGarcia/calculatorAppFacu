@@ -19,4 +19,3 @@ export const normalizeName = value => {
   }
   return value.replace(/[^a-zA-Z]/g, '');
 };
-
