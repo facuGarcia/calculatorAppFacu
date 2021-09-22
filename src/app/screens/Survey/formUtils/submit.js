@@ -9,6 +9,7 @@ export const submitForm = ({ values }) => {
 };
 
 export const cancelForm = () => {
+  document.activeElement.blur();
   store.dispatch(actionCreators.saveUser(store.getState().form.surveyForm.values));
   store.dispatch(push('/'));
 };
