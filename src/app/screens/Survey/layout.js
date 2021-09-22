@@ -1,14 +1,13 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { Field, reduxForm, submit } from 'redux-form';
+import { Field, reduxForm } from 'redux-form';
 import { TextField } from '@widergy/energy-ui/node_modules/@material-ui/core';
-import { push } from 'connected-react-router';
-import { useDispatch } from 'react-redux';
+import { useDispatch, connect } from 'react-redux';
 
 import styles from './styles.module.scss';
-import { normalizePhone, normalizeName } from './form/normalize.js';
-import { validate } from './form/validate';
-import { submitForm } from './form/submit';
+import { normalizePhone, normalizeName } from './formUtils/normalize.js';
+import { validate } from './formUtils/validate';
+import { cancelForm, submitForm } from './formUtils/submit';
 
 const renderTextField = ({ label, input, meta: { touched, invalid, error }, ...custom }) => (
   <TextField
@@ -28,7 +27,11 @@ const SurveyLayout = ({ handleSubmit }) => {
   return (
     <div>
       <div className={styles.surveyTitle}>Encuesta</div>
-      <form id="surveyForm" classes={{ root: styles.formContainer }} onSubmit={handleSubmit(submitForm)}>
+      <form
+        id="surveyForm"
+        classes={{ root: styles.formContainer }}
+        onSubmit={handleSubmit(values => submitForm({ values }))}
+      >
         <div className={styles.formContainer}>
           <div>
             <div>
@@ -47,7 +50,7 @@ const SurveyLayout = ({ handleSubmit }) => {
         <button className={styles.submitButton} type="submit" form="surveyForm">
           Enviar
         </button>
-        <button className={styles.survToCalcButton} onClick={() => dispatch(push('/'))}>
+        <button className={styles.survToCalcButton} onClick={() => cancelForm()}>
           Cancelar
         </button>
       </div>
@@ -55,7 +58,9 @@ const SurveyLayout = ({ handleSubmit }) => {
   );
 };
 
-export default reduxForm({
-  form: 'surveyForm',
-  validate
-})(SurveyLayout);
+export default connect(state => ({ initialValues: state.userInfoReducer.userInfo }))(
+  reduxForm({
+    form: 'surveyForm',
+    validate
+  })(SurveyLayout)
+);

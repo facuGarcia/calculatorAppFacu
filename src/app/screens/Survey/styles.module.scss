@@ -66,13 +66,13 @@
 }
 
 .submitButton {
-  @extend%surveybutton !optional;
+  @extend %surveyButton;
   text-align: left;
   padding-left: 15px;
 }
 
 .survToCalcButton {
-  @extend%surveybutton !optional;
+  @extend %surveyButton;
   text-align: right;
   padding-right: 15px;
 }
