@@ -97,13 +97,13 @@
 }
 
 .calcToRecButton {
-  @extend%calcButtons;
-  text-align: left;
+  @extend %calcButtons;
   padding-left: 15px;
+  text-align: left;
 }
 
 .calcToSurvcButton {
-  @extend%calcButtons;
-  text-align: right;
+  @extend %calcButtons;
   padding-right: 15px;
+  text-align: right;
 }
