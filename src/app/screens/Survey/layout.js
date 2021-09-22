@@ -2,7 +2,7 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { TextField } from '@widergy/energy-ui/node_modules/@material-ui/core';
-import { useDispatch, connect } from 'react-redux';
+import { connect } from 'react-redux';
 
 import styles from './styles.module.scss';
 import { normalizePhone, normalizeName } from './formUtils/normalize.js';
@@ -21,42 +21,38 @@ const renderTextField = ({ label, input, meta: { touched, invalid, error }, ...c
   />
 );
 
-const SurveyLayout = ({ handleSubmit }) => {
-  const dispatch = useDispatch();
-
-  return (
-    <div>
-      <div className={styles.surveyTitle}>Encuesta</div>
-      <form
-        id="surveyForm"
-        classes={{ root: styles.formContainer }}
-        onSubmit={handleSubmit(values => submitForm({ values }))}
-      >
-        <div className={styles.formContainer}>
+const SurveyLayout = ({ handleSubmit }) => (
+  <div>
+    <div className={styles.surveyTitle}>Encuesta</div>
+    <form
+      id="surveyForm"
+      classes={{ root: styles.formContainer }}
+      onSubmit={handleSubmit(values => submitForm({ values }))}
+    >
+      <div className={styles.formContainer}>
+        <div>
           <div>
-            <div>
-              <Field name="name" component={renderTextField} label="Nombre" normalize={normalizeName} />
-            </div>
-            <div>
-              <Field name="input" component={renderTextField} label="Devolución" />
-            </div>
-            <div>
-              <Field name="phone" component={renderTextField} label="Teléfono" normalize={normalizePhone} />
-            </div>
+            <Field name="name" component={renderTextField} label="Nombre" normalize={normalizeName} />
+          </div>
+          <div>
+            <Field name="input" component={renderTextField} label="Devolución" />
+          </div>
+          <div>
+            <Field name="phone" component={renderTextField} label="Teléfono" normalize={normalizePhone} />
           </div>
         </div>
-      </form>
-      <div className={styles.surveyButtons}>
-        <button className={styles.submitButton} type="submit" form="surveyForm">
-          Enviar
-        </button>
-        <button className={styles.survToCalcButton} onClick={() => cancelForm()}>
-          Cancelar
-        </button>
       </div>
+    </form>
+    <div className={styles.surveyButtons}>
+      <button className={styles.submitButton} type="submit" form="surveyForm">
+        Enviar
+      </button>
+      <button className={styles.survToCalcButton} onClick={() => cancelForm()}>
+        Cancelar
+      </button>
     </div>
-  );
-};
+  </div>
+);
 
 export default connect(state => ({ initialValues: state.userInfoReducer.userInfo }))(
   reduxForm({

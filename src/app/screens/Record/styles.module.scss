@@ -88,13 +88,13 @@
 }
 
 .clearButton {
-  @extend%recordButtons;
-  text-align: left;
+  @extend %recordButtons;
   padding-left: 15px;
+  text-align: left;
 }
 
 .recToCalcButton {
-  @extend%recordButtons;
-  text-align: right;
+  @extend %recordButtons;
   padding-right: 15px;
+  text-align: right;
 }
