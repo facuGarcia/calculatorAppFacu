@@ -27,11 +27,10 @@ export const handleFocus = (index, dispatch) => {
   );
 };
 
-const posibleCharacters = DIGITS.concat(SIGNS, OPERATORS)
+const posibleCharacters = DIGITS.concat(SIGNS, OPERATORS);
 
 export const handleKeyPress = event => {
-  if (!posibleCharacters.includes(event.key)){
+  if (!posibleCharacters.includes(event.key)) {
     return event.preventDefault();
   }
 };
-

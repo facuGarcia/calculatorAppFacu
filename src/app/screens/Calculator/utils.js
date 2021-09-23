@@ -1,3 +1,1 @@
-const changeScreenToRecord = history => history.push('/record');
-
-export default changeScreenToRecord;
+export const changeScreenToRecord = history => history.push('/record');

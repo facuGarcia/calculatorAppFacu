@@ -65,6 +65,21 @@
     background-color: $input-primary;
     font-weight: 600;
   }
+
+  & :last-child {
+    background-color: $gray;
+    color: $input-primary;
+    font-size: 20px;
+
+    &:hover {
+      background-color: $black;
+    }
+  }
+}
+
+.operator {
+  background-color: $input-primary;
+  font-weight: 600;
 }
 
 .calcToRecButton {

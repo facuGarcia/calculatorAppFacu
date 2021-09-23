@@ -14,8 +14,13 @@ const CalculatorContainer = ({ dispatch }) => {
   const [resultRef, setResult] = useMutableState('');
   const [isValidRef, setIsValid] = useMutableState(false);
   const [didCommit, setDidCommit] = useState(false);
+  const [savedResultRef, setSavedResult] = useMutableState('');
 
   const updateCalc = input => {
+    if (!(savedResultRef.current === '')) {
+      document.getElementById('=').textContent = '=';
+      setSavedResult('');
+    }
     let auxCalc = calcRef.current;
     if (auxCalc === SYN_ERR || auxCalc === 'Infinity') auxCalc = '';
     if (
@@ -56,19 +61,29 @@ const CalculatorContainer = ({ dispatch }) => {
 
   const commitResult = () => {
     if (resultRef.current === '' && isValidRef.current) return;
-    if (resultRef.current !== calcRef.current) {
+    if (
+      (DIGITS.includes(calcRef.current.slice(-1)) && resultRef.current !== calcRef.current) ||
+      (!DIGITS.includes(calcRef.current.slice(-1)) && resultRef.current !== calcRef.current.slice(0, -1))
+    ) {
       setDidCommit(true);
       if (isValidRef.current) {
         let newResult = `${calcRef.current}`;
         if (!DIGITS.includes(calcRef.current.slice(-1))) newResult = newResult.slice(0, -1);
         newResult = `${newResult} = ${resultRef.current}`;
-        dispatch(OperationActions.addOperation(newResult));
         setCalc(resultRef.current);
+        document.getElementById('=').textContent = 'Guardar';
+        setSavedResult(newResult);
       } else {
         setCalc(SYN_ERR);
       }
     } else setResult('');
   };
+  const saveResult = () => {
+    document.getElementById('=').textContent = '=';
+    dispatch(OperationActions.addOperation(savedResultRef.current));
+    setSavedResult('');
+  };
+  const handleResult = () => (savedResultRef.current === '' ? commitResult() : saveResult());
 
   const deleteLast = () => {
     if (calcRef.current !== '') setCalc(calcRef.current.slice(0, -1));
@@ -83,17 +98,22 @@ const CalculatorContainer = ({ dispatch }) => {
       updateCalc(e.key);
     } else if (e.key === 'Enter' || e.key === '=') {
       document.activeElement.blur();
-      commitResult();
+      handleResult();
     } else if (e.key === 'Backspace') {
       deleteLast();
+    }
+    if (!(e.key === 'Enter' || e.key === '=') && !(savedResultRef.current === '')) {
+      document.getElementById('=').textContent = '=';
+      setSavedResult('');
     }
   };
   useEffect(() => {
     window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
   }, []);
 
   const calculatorButtonRenderer = (action, text) => (
-    <button className={styles.calculatorBotton} onClick={() => action(text)}>
+    <button id={text} className={styles.calculatorBotton} onClick={() => action(text)}>
       {text}
     </button>
   );
@@ -108,7 +128,7 @@ const CalculatorContainer = ({ dispatch }) => {
   };
   const generateOperators = () => {
     const operators = OPERATORS.map(operator => calculatorButtonRenderer(updateCalc, operator));
-    operators.push(calculatorButtonRenderer(commitResult, '='));
+    operators.push(calculatorButtonRenderer(handleResult, '='));
     return operators;
   };
 
