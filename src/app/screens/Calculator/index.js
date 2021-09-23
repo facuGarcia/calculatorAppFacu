@@ -9,7 +9,7 @@ import { DIGITS, SIGNS, OPERATORS, OPERATORS_NOT_MINUS, SYN_ERR } from './consta
 import styles from './styles.module.scss';
 import useMutableState from './hooks/useMutableState';
 
-const Calculator = dispatch => {
+const Calculator = ({ dispatch }) => {
   const [calcRef, setCalc] = useMutableState('');
   const [resultRef, setResult] = useMutableState('');
   const [isValidRef, setIsValid] = useMutableState(false);
@@ -59,9 +59,10 @@ const Calculator = dispatch => {
     if (resultRef.current !== calcRef.current) {
       setDidCommit(true);
       if (isValidRef.current) {
-        dispatch.dispatch(OperationActions.addOperation(`${calcRef.current} = ${resultRef.current}`), [
-          dispatch
-        ]);
+        let newResult = `${calcRef.current}`;
+        if (!DIGITS.includes(calcRef.current.slice(-1))) newResult = newResult.slice(0, -1);
+        newResult = `${newResult} = ${resultRef.current}`;
+        dispatch(OperationActions.addOperation(newResult));
         setCalc(resultRef.current);
       } else {
         setCalc(SYN_ERR);
