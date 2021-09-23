@@ -70,7 +70,7 @@
   width: 100%;
 }
 
-.clear {
+%recordButtons {
   appearance: none;
   background-color: $gray;
   border: 0;
@@ -79,7 +79,6 @@
   font-size: 16px;
   font-weight: 300;
   padding: 10px;
-  text-align: left;
   width: 50%;
 
   &:hover {
@@ -87,20 +86,14 @@
   }
 }
 
+.clear {
+  @extend %recordButtons;
+  padding-left: 10px;
+  text-align: left;
+}
+
 .recToCalcButton {
-  appearance: none;
-  background-color: $gray;
-  border: 0;
-  border-radius: 0;
-  color: $disabled-gray;
-  font-size: 16px;
-  font-weight: 300;
-  padding: 10px;
+  @extend %recordButtons;
   padding-right: 15px;
   text-align: right;
-  width: 50%;
-
-  &:hover {
-    background-color: $black;
-  }
 }
