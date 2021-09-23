@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 
 import styles from './styles.module.scss';
 
-const CalculatorLayout = ({ result, digits, calc, operators }) => {
+const Calculator = ({ result, digits, calc, operators }) => {
   const dispatch = useDispatch();
 
   return (
@@ -29,11 +29,11 @@ const CalculatorLayout = ({ result, digits, calc, operators }) => {
     </div>
   );
 };
-CalculatorLayout.propTypes = {
+Calculator.propTypes = {
   result: string,
   calc: string,
   digits: arrayOf(elementType),
   operators: arrayOf(elementType)
 };
 
-export default CalculatorLayout;
+export default Calculator;

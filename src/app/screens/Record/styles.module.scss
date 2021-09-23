@@ -79,7 +79,6 @@
   font-size: 16px;
   font-weight: 300;
   padding: 10px;
-  text-align: left;
   width: 50%;
 
   &:hover {
@@ -87,9 +86,9 @@
   }
 }
 
-.clearButton {
+.clear {
   @extend %recordButtons;
-  padding-left: 15px;
+  padding-left: 10px;
   text-align: left;
 }
 

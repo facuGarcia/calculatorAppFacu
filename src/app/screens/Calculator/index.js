@@ -4,18 +4,23 @@ import { connect } from 'react-redux';
 
 import OperationActions from 'redux/operations/actions';
 
-import CalculatorLayout from './layout';
+import Calculator from './layout';
 import { DIGITS, SIGNS, OPERATORS, OPERATORS_NOT_MINUS, SYN_ERR } from './constants.js';
 import styles from './styles.module.scss';
 import useMutableState from './hooks/useMutableState';
 
-const Calculator = ({ dispatch }) => {
+const CalculatorContainer = ({ dispatch }) => {
   const [calcRef, setCalc] = useMutableState('');
   const [resultRef, setResult] = useMutableState('');
   const [isValidRef, setIsValid] = useMutableState(false);
   const [didCommit, setDidCommit] = useState(false);
+  const [savedResultRef, setSavedResult] = useMutableState('');
 
   const updateCalc = input => {
+    if (!(savedResultRef.current === '')) {
+      document.getElementById('=').textContent = '=';
+      setSavedResult('');
+    }
     let auxCalc = calcRef.current;
     if (auxCalc === SYN_ERR || auxCalc === 'Infinity') auxCalc = '';
     if (
@@ -56,16 +61,29 @@ const Calculator = ({ dispatch }) => {
 
   const commitResult = () => {
     if (resultRef.current === '' && isValidRef.current) return;
-    if (resultRef.current !== calcRef.current) {
+    if (
+      (DIGITS.includes(calcRef.current.slice(-1)) && resultRef.current !== calcRef.current) ||
+      (!DIGITS.includes(calcRef.current.slice(-1)) && resultRef.current !== calcRef.current.slice(0, -1))
+    ) {
       setDidCommit(true);
       if (isValidRef.current) {
-        dispatch(OperationActions.addOperation(`${calcRef.current} = ${resultRef.current}`));
+        let newResult = `${calcRef.current}`;
+        if (!DIGITS.includes(calcRef.current.slice(-1))) newResult = newResult.slice(0, -1);
+        newResult = `${newResult} = ${resultRef.current}`;
         setCalc(resultRef.current);
+        document.getElementById('=').textContent = 'Guardar';
+        setSavedResult(newResult);
       } else {
         setCalc(SYN_ERR);
       }
     } else setResult('');
   };
+  const saveResult = () => {
+    document.getElementById('=').textContent = '=';
+    dispatch(OperationActions.addOperation(savedResultRef.current));
+    setSavedResult('');
+  };
+  const handleResult = () => (savedResultRef.current === '' ? commitResult() : saveResult());
 
   const deleteLast = () => {
     if (calcRef.current !== '') setCalc(calcRef.current.slice(0, -1));
@@ -80,18 +98,22 @@ const Calculator = ({ dispatch }) => {
       updateCalc(e.key);
     } else if (e.key === 'Enter' || e.key === '=') {
       document.activeElement.blur();
-      commitResult();
+      handleResult();
     } else if (e.key === 'Backspace') {
       deleteLast();
+    }
+    if (!(e.key === 'Enter' || e.key === '=') && !(savedResultRef.current === '')) {
+      document.getElementById('=').textContent = '=';
+      setSavedResult('');
     }
   };
   useEffect(() => {
     window.addEventListener('keydown', onKeyDown);
-    dispatch(OperationActions.fetchOperations());
+    return () => window.removeEventListener('keydown', onKeyDown);
   }, []);
 
   const calculatorButtonRenderer = (action, text) => (
-    <button className={styles.calculatorBotton} onClick={() => action(text)}>
+    <button id={text} className={styles.calculatorBotton} onClick={() => action(text)}>
       {text}
     </button>
   );
@@ -106,13 +128,13 @@ const Calculator = ({ dispatch }) => {
   };
   const generateOperators = () => {
     const operators = OPERATORS.map(operator => calculatorButtonRenderer(updateCalc, operator));
-    operators.push(calculatorButtonRenderer(commitResult, '='));
+    operators.push(calculatorButtonRenderer(handleResult, '='));
     return operators;
   };
 
   return (
     <div className={styles.container}>
-      <CalculatorLayout
+      <Calculator
         result={resultRef.current}
         calc={calcRef.current}
         digits={generateDigits()}
@@ -122,4 +144,4 @@ const Calculator = ({ dispatch }) => {
   );
 };
 
-export default connect()(Calculator);
+export default connect()(CalculatorContainer);

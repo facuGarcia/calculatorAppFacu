@@ -4,10 +4,11 @@ import { useDispatch } from 'react-redux';
 import { arrayOf, elementType } from 'prop-types';
 
 import OperationActions from 'redux/operations/actions';
+import { CALCULATOR } from 'constants/routes';
 
 import styles from './styles.module.scss';
 
-const RecordLayout = ({ operations }) => {
+const Record = ({ operations }) => {
   const dispatch = useDispatch();
 
   return (
@@ -15,13 +16,10 @@ const RecordLayout = ({ operations }) => {
       <div className={styles.recordTitle}>Historial</div>
       <div className={styles.operations}>{operations}</div>
       <div className={styles.recordButtons}>
-        <button
-          className={styles.clearButton}
-          onClick={() => dispatch(OperationActions.removeAllOperations())}
-        >
+        <button className={styles.clear} onClick={() => dispatch(OperationActions.removeAllOperations())}>
           Limpiar
         </button>
-        <button className={styles.recToCalcButton} onClick={() => dispatch(push('/'))}>
+        <button className={styles.recToCalcButton} onClick={() => dispatch(push(CALCULATOR))}>
           Volver a la calculadora
         </button>
       </div>
@@ -29,10 +27,10 @@ const RecordLayout = ({ operations }) => {
   );
 };
 
-RecordLayout.propTypes = {
+Record.propTypes = {
   operations: arrayOf(elementType)
 };
 
-RecordLayout.propTypes = {};
+Record.propTypes = {};
 
-export default RecordLayout;
+export default Record;

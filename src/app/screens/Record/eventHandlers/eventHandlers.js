@@ -1,6 +1,7 @@
 import OperationActions from 'redux/operations/actions';
+import { DIGITS, SIGNS, OPERATORS } from 'app/screens/Calculator/constants.js';
 
-const handdleFocus = (id, dispatch) => {
+export const handleFocus = (id, dispatch) => {
   let enterHandler;
   let blurHandler;
   window.addEventListener(
@@ -16,9 +17,20 @@ const handdleFocus = (id, dispatch) => {
     (blurHandler = () => {
       window.removeEventListener('keypress', enterHandler);
       document.getElementById(id).removeEventListener('blur', blurHandler);
-      dispatch(OperationActions.modifyOperation(id, document.getElementById(id).textContent));
+      const modifiedContent = document.getElementById(id).textContent;
+      dispatch(
+        modifiedContent === ''
+          ? OperationActions.removeOperation(id)
+          : OperationActions.modifyOperation(id, modifiedContent)
+      );
     })
   );
 };
 
-export default handdleFocus;
+const posibleCharacters = DIGITS.concat(SIGNS, OPERATORS);
+
+export const handleKeyPress = event => {
+  if (!posibleCharacters.includes(event.key)) {
+    return event.preventDefault();
+  }
+};

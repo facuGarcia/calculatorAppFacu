@@ -4,10 +4,10 @@ import { connect } from 'react-redux';
 import SurveyLayout from './layout';
 import styles from './styles.module.scss';
 
-const Survey = () => (
+const SurveyConteiner = () => (
   <div className={styles.container}>
     <SurveyLayout />
   </div>
 );
 
-export default connect()(Survey);
+export default connect()(SurveyConteiner);

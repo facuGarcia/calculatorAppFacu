@@ -21,7 +21,7 @@ const theme = createMuiTheme({
   }
 });
 
-const SurveyLayout = ({ handleSubmit }) => (
+const Survey = ({ handleSubmit }) => (
   <div>
     <div className={styles.surveyTitle}>Encuesta</div>
     <MuiThemeProvider theme={theme}>
@@ -60,5 +60,5 @@ export default connect(state => ({ initialValues: state.userInfoReducer.userInfo
   reduxForm({
     form: 'surveyForm',
     validate
-  })(SurveyLayout)
+  })(Survey)
 );
