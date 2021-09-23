@@ -4,11 +4,11 @@ import { connect } from 'react-redux';
 
 import OperationActions from 'redux/operations/actions';
 
-import RecordLayout from './layout';
+import Record from './layout';
 import styles from './styles.module.scss';
 import handdleFocus from './eventHandlers/eventHandlers';
 
-const Record = ({ operations, dispatch }) => {
+const RecordContainer = ({ operations, dispatch }) => {
   const formatedOperations = operations.map(operation => (
     <div className={styles.operator}>
       <button onClick={() => dispatch(OperationActions.removeOperation(operation.index))}>X</button>
@@ -19,15 +19,15 @@ const Record = ({ operations, dispatch }) => {
   ));
   return (
     <div className={styles.container}>
-      <RecordLayout operations={formatedOperations} />
+      <Record operations={formatedOperations} />
     </div>
   );
 };
 
-Record.propTypes = {
+RecordContainer.propTypes = {
   operations: arrayOf(elementType)
 };
 
 const mapStateToProps = state => ({ operations: state.operationsRecord.operations });
 
-export default connect(mapStateToProps)(Record);
+export default connect(mapStateToProps)(RecordContainer);

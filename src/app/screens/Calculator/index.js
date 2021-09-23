@@ -4,12 +4,12 @@ import { connect } from 'react-redux';
 
 import OperationActions from 'redux/operations/actions';
 
-import CalculatorLayout from './layout';
+import Calculator from './layout';
 import { DIGITS, SIGNS, OPERATORS, OPERATORS_NOT_MINUS, SYN_ERR } from './constants.js';
 import styles from './styles.module.scss';
 import useMutableState from './hooks/useMutableState';
 
-const Calculator = ({ dispatch }) => {
+const CalculatorContainer = ({ dispatch }) => {
   const [calcRef, setCalc] = useMutableState('');
   const [resultRef, setResult] = useMutableState('');
   const [isValidRef, setIsValid] = useMutableState(false);
@@ -114,7 +114,7 @@ const Calculator = ({ dispatch }) => {
 
   return (
     <div className={styles.container}>
-      <CalculatorLayout
+      <Calculator
         result={resultRef.current}
         calc={calcRef.current}
         digits={generateDigits()}
@@ -124,4 +124,4 @@ const Calculator = ({ dispatch }) => {
   );
 };
 
-export default connect()(Calculator);
+export default connect()(CalculatorContainer);

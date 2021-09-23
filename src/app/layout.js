@@ -6,8 +6,8 @@ import { history } from 'redux/store';
 import { CALCULATOR, RECORD } from 'constants/routes';
 
 import Topbar from './components/Topbar';
-import RecordLayout from './screens/Record';
-import CalculatorLayout from './screens/Calculator';
+import Record from './screens/Record';
+import Calculator from './screens/Calculator';
 import styles from './styles.module.scss';
 
 const App = () => (
@@ -16,8 +16,8 @@ const App = () => (
     <div className={styles.container}>
       <ConnectedRouter history={history}>
         <Switch>
-          <Route exact path={CALCULATOR} component={CalculatorLayout} />
-          <Route exact path={RECORD} component={RecordLayout} />
+          <Route exact path={CALCULATOR} component={Calculator} />
+          <Route exact path={RECORD} component={Record} />
           <Route render={() => <Redirect to={CALCULATOR} />} />
         </Switch>
       </ConnectedRouter>
