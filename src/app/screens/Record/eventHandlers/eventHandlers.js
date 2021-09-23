@@ -16,7 +16,12 @@ const handdleFocus = (index, dispatch) => {
     (blurHandler = () => {
       window.removeEventListener('keypress', enterHandler);
       document.getElementById(index).removeEventListener('blur', blurHandler);
-      dispatch(OperationActions.modifyOperation(index, document.getElementById(index).textContent));
+      const modifiedContent = document.getElementById(index).textContent;
+      dispatch(
+        modifiedContent === ''
+          ? OperationActions.removeOperation(index)
+          : OperationActions.modifyOperation(index, modifiedContent)
+      );
     })
   );
 };
