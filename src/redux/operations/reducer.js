@@ -6,31 +6,46 @@ import Operation from 'utils/operationClass';
 import { actions } from './actions';
 
 export const defaultState = {
-  operations: [],
-  currentIndex: 0
+  operationsRecord: {
+    currentId: 0,
+    operations: []
+  },
+  messagesRecord: {
+    message: 'Bienvenido'
+  }
 };
 
 const reducerDescription = {
-  primaryActions: [actions.ADD_OPERATION, actions.REMOVE_OPERATION],
+  primaryActions: [actions.USE_METHOD, actions.FETCH_OPERATIONS],
   override: {
     [actions.ADD_OPERATION]: (state, action) =>
       Immutable.merge(state, {
-        operations: state.operations.concat(new Operation(state.currentIndex, action.payload)),
-        currentIndex: state.currentIndex + 1
+        operationsRecord: {
+          operations: state.operationsRecord.operations.concat(
+            new Operation(state.operationsRecord.currentId, action.payload)
+          ),
+          currentId: state.operationsRecord.currentId + 1
+        }
       }),
     [actions.REMOVE_OPERATION]: (state, action) =>
       Immutable.merge(state, {
-        operations: state.operations.filter(operation => operation.index !== action.payload)
+        operationsRecord: {
+          operations: state.operationsRecord.operations.filter(operation => operation.id !== action.payload)
+        }
       }),
-    [actions.REMOVE_ALL_OPERATIONS]: state => Immutable.merge(state, { operations: defaultState.operations }),
+    [actions.REMOVE_ALL_OPERATIONS]: state =>
+      Immutable.merge(state, { operationsRecord: defaultState.operationsRecord }),
     [actions.MODIFY_OPERATION]: (state, action) =>
       Immutable.merge(state, {
-        operations: state.operations.map(operation =>
-          operation.index !== action.payload.index
-            ? operation
-            : new Operation(action.payload.index, action.payload.newExpression)
-        )
-      })
+        operationsRecord: {
+          operations: state.operationsRecord.operations.map(operation =>
+            operation.id !== action.payload.id
+              ? operation
+              : new Operation(action.payload.id, action.payload.newExpression)
+          )
+        }
+      }),
+    [actions.CLEAR_MESSAGE]: state => Immutable.merge(state, { messagesRecord: '' })
   }
 };
 

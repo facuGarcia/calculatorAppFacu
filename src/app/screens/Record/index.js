@@ -34,6 +34,6 @@ RecordContainer.propTypes = {
   operations: arrayOf(elementType)
 };
 
-const mapStateToProps = state => ({ operations: state.operationsRecord.operations });
+const mapStateToProps = state => ({ operations: state.operationsRecord.operationsRecord.operations });
 
 export default connect(mapStateToProps)(RecordContainer);

@@ -1,0 +1,36 @@
+@import 'scss/variables/_sizes.scss';
+@import '_colors.scss';
+
+$shadow: 0 0 7px 0 rgba(122, 122, 122, 0.81);
+
+%message {
+  align-items: center;
+  background-color: $topbar-background;
+  bottom: 0;
+  box-shadow: $shadow;
+  display: flex;
+  flex-direction: row;
+  height: 50px;
+  justify-content: center;
+  position: absolute;
+  transition: height 0.5s ease-in-out;
+  width: 100%;
+
+  & * {
+    max-height: 100%;
+    overflow: hidden;
+  }
+}
+
+.showMessage {
+  @extend %message;
+}
+
+.hiddenMessage {
+  @extend %message;
+  height: 0;
+}
+
+.logo {
+  height: calc(#{$topbar-heigth} - 40px);
+}

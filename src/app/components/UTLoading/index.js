@@ -1,7 +1,7 @@
 import React from 'react';
 import { any, bool, string } from 'prop-types';
 
-import Loading from './components/Spinner/index';
+import Loading from './components/Spinner/id';
 
 const UTLoading = ({ loading, text, containerSpinner, className, children }) =>
   loading ? (

@@ -1,27 +1,27 @@
 import OperationActions from 'redux/operations/actions';
 import { DIGITS, SIGNS, OPERATORS } from 'app/screens/Calculator/constants.js';
 
-export const handleFocus = (index, dispatch) => {
+export const handleFocus = (id, dispatch) => {
   let enterHandler;
   let blurHandler;
   window.addEventListener(
     'keypress',
     (enterHandler = event => {
       if (event.key === 'Enter') {
-        document.getElementById(index).blur();
+        document.getElementById(id).blur();
       }
     })
   );
-  document.getElementById(index).addEventListener(
+  document.getElementById(id).addEventListener(
     'blur',
     (blurHandler = () => {
       window.removeEventListener('keypress', enterHandler);
-      document.getElementById(index).removeEventListener('blur', blurHandler);
-      const modifiedContent = document.getElementById(index).textContent;
+      document.getElementById(id).removeEventListener('blur', blurHandler);
+      const modifiedContent = document.getElementById(id).textContent;
       dispatch(
         modifiedContent === ''
-          ? OperationActions.removeOperation(index)
-          : OperationActions.modifyOperation(index, modifiedContent)
+          ? OperationActions.removeOperation(id)
+          : OperationActions.modifyOperation(id, modifiedContent)
       );
     })
   );
