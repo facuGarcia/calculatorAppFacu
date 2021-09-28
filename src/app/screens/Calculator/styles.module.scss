@@ -1,0 +1,100 @@
+@import 'scss/variables/_sizes.scss';
+@import '_colors.scss';
+
+.container {
+  background-color: $black;
+  border-radius: 15px;
+  box-shadow: 0 2px 64px $box-color;
+  display: flex;
+  flex-direction: column;
+  margin-top: 10vh;
+  max-width: 600px;
+  overflow: hidden;
+  width: 100%;
+}
+
+.calculatorDisplay {
+  align-content: center;
+  align-items: flex-end;
+  background-color: $gray;
+  color: $disabled-gray;
+  display: flex;
+  flex-direction: column;
+  font-size: 25px;
+  font-weight: 300;
+  height: 70px;
+  justify-content: center;
+  padding-right: 12px;
+}
+
+.result {
+  font-size: 15px;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+}
+
+.digits {
+  display: flex;
+  flex: 0 0 75%;
+  flex-wrap: wrap;
+
+  & button {
+    flex: 0 0 33.33333%;
+  }
+}
+
+.calculatorBotton {
+  appearance: none;
+  border: 0;
+  padding: 15px;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.operators {
+  display: flex;
+  flex-flow: column;
+  flex-grow: 100;
+
+  & button {
+    background-color: $input-primary;
+    font-weight: 600;
+  }
+
+  & :last-child {
+    background-color: $gray;
+    color: $input-primary;
+    font-size: 20px;
+
+    &:hover {
+      background-color: $black;
+    }
+  }
+}
+
+.operator {
+  background-color: $input-primary;
+  font-weight: 600;
+}
+
+.calcToRecButton {
+  align-items: flex-start;
+  appearance: none;
+  background-color: $gray;
+  border: 0;
+  color: $disabled-gray;
+  display: flex;
+  font-size: 16px;
+  font-weight: 300;
+  padding: 10px;
+  width: 100%;
+
+  &:hover {
+    background-color: $black;
+  }
+}

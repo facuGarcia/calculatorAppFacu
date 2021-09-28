@@ -1,15 +1,17 @@
 $black: #333;
 $white: #FFF;
+$plain-white: #EFEFEF;
 $gray: rgba(0, 0, 0, 0.54);
 $disabled-gray: #D5D3D3;
 $divider-base: rgba(236, 219, 219, 0.15);
-$input-primary: #00D564;
-$loading-base: #00AF52;
+$input-primary: #D50000;
+$loading-base: #AF0000;
 $error: #F44336;
-$primary-button: #00D564;
-$primary-button-hover: #00AF52;
+$primary-button: #D50000;
+$primary-button-hover: #AF0000;
 $primary-text-button-hover: #D0F7E2;
-$topbar-background: #00D564;
+$topbar-background: #D50000;
+$box-color: rgba(0, 0, 0, 0.3);
 
 // sass-lint:disable no-misspelled-properties
 // sass-lint:disable property-sort-order

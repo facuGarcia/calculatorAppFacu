@@ -1,6 +1,6 @@
 export default {
   es: {
-    Home: {
+    Calculator: {
       title: 'Esta es la página de bienvenida del template de proyecto React',
       subtitle: 'Presioná el botón para navegar a la pagina de consulta de personajes',
       button: 'Continuar'

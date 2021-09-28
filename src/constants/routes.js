@@ -1,2 +1,2 @@
-export const HOME = '/';
-export const QUOTES = '/quotes';
+export const CALCULATOR = '/';
+export const RECORD = '/record';
