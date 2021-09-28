@@ -1,23 +1,39 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import { arrayOf, elementType } from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 
-import RecordLayout from './layout';
-import styles from './styles.module.scss';
+import OperationActions from 'redux/operations/actions';
 
-const Record = ({ operations }) => {
-  const formatedOperations = operations.map(operator => <div className={styles.operator}>{operator}</div>);
+import Record from './layout';
+import styles from './styles.module.scss';
+import { handleFocus, handleKeyPress } from './eventHandlers/eventHandlers.js';
+
+const RecordContainer = ({ operations, dispatch }) => {
+  const formatedOperations = operations.map(operation => (
+    <div className={styles.operator}>
+      <button onClick={() => dispatch(OperationActions.removeOperation(operation.index))}>X</button>
+      <div
+        contentEditable
+        id={operation.index}
+        onFocus={() => handleFocus(operation.index, dispatch)}
+        onKeyPress={event => handleKeyPress(event)}
+      >
+        {operation.expression}
+      </div>
+    </div>
+  ));
   return (
     <div className={styles.container}>
-      <RecordLayout operations={formatedOperations} />
+      <Record operations={formatedOperations} />
     </div>
   );
 };
 
-Record.propTypes = {
+RecordContainer.propTypes = {
   operations: arrayOf(elementType)
 };
 
 const mapStateToProps = state => ({ operations: state.operationsRecord.operations });
 
-export default connect(mapStateToProps)(Record);
+export default connect(mapStateToProps)(RecordContainer);
