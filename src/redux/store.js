@@ -6,6 +6,8 @@ import { reducer as formReducer } from 'redux-form';
 import { fetchMiddleware } from 'redux-recompose';
 
 import { reducer as operationsRecord } from './operations/reducer';
+import { reducer as messageReducer } from './message/reducer';
+import { reducer as userInfoReducer } from './userInfo/reducer';
 
 export const history = createBrowserHistory();
 
@@ -27,6 +29,8 @@ const form = formReducer.plugin({
 
 const reducers = combineReducers({
   operationsRecord,
+  messageReducer,
+  userInfoReducer,
   router: connectRouter(history),
   form
 });

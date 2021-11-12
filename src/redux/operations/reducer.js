@@ -9,14 +9,11 @@ export const defaultState = {
   operationsRecord: {
     currentId: 0,
     operations: []
-  },
-  messagesRecord: {
-    message: 'Bienvenido'
   }
 };
 
 const reducerDescription = {
-  primaryActions: [actions.USE_METHOD, actions.FETCH_OPERATIONS],
+  primaryActions: [actions.FETCH_OPERATIONS],
   override: {
     [actions.ADD_OPERATION]: (state, action) =>
       Immutable.merge(state, {

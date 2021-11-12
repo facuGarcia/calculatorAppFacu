@@ -29,6 +29,6 @@ const MessagesBar = ({ message }) => {
   );
 };
 
-const mapStateToProps = state => ({ message: state.operationsRecord.messagesRecord.message });
+const mapStateToProps = state => ({ message: state.messageReducer.messageDisplayed.message });
 
 export default connect(mapStateToProps)(MessagesBar);

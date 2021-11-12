@@ -4,5 +4,6 @@ export default {
   getOperations: () => api.get('/operations'),
   postOperations: operation => api.post('/operations', { operation }),
   putOperations: newOperation => api.put('/operations', { newOperation }),
-  deleteOperations: id => api.delete('/operations', { id })
+  deleteOperations: id => api.delete('/operations', { id }),
+  sendSurvey: survey => api.post('/surveys', { survey })
 };

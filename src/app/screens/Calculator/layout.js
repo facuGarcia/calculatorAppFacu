@@ -18,9 +18,14 @@ const Calculator = ({ result, digits, calc, operators }) => {
         <div className={styles.digits}> {digits}</div>
         <div className={styles.operators}>{operators}</div>
       </div>
-      <button className={styles.calcToRecButton} onClick={() => dispatch(push('/record'))}>
-        Ver el Historial
-      </button>
+      <div className={styles.calcButtons}>
+        <button className={styles.calcToRecButton} onClick={() => dispatch(push('/record'))}>
+          Ver el historial
+        </button>
+        <button className={styles.calcToSurvcButton} onClick={() => dispatch(push('/survey'))}>
+          Ir a la encuesta
+        </button>
+      </div>
     </div>
   );
 };
